@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="row mt-5">
+    <div class="col-sm-12">
+      <h1 class="display-4 text-center">Signup Admin</h1>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-sm-12 col-md-4"></div>
+
+    <div class="col-sm-12 col-md-4 bg-light py-4 signupBox">
+      <form name="signupAdminForm" #signupAdminForm="ngForm" (ngSubmit)="onSubmit(signupAdminForm.value)">
+        <div class="form-group">
+          <label for="first_name">First Name</label>
+          <input type="text" class="form-control" id="first_name" placeholder="Enter first name"
+                 name="first_name" ngModel required>
+        </div>
+        <div class="form-group">
+          <label for="last_name">Last Name</label>
+          <input type="email" class="form-control" id="last_name" placeholder="Enter last name"
+                 name="last_name" ngModel required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"
+                 name="email" ngModel required>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password"
+                 name="password" ngModel required>
+        </div>
+        <button type="submit" class="btn btn-success"
+                [disabled]="!signupAdminForm.valid">Sign up</button>
+      </form>
+    </div>
+
+    <div class="col-sm-12 col-md-4"></div>
+
+    <div class="col-sm-12 text-center my-4">
+      <small class="text-muted">Already have an account?  <a routerLink="../../admin/login" class="text-decoration-none text-success">Login Here</a></small>
+    </div>
+  </div>
+
+
+</div>
