@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h1 class="display-4 text-center">Manage Products</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="card-body">
+    <table class="table table-bordered" style="width: 100%">
+      <tr>
+        <th class="td-fix">Thumbnail</th>
+        <th class="td-fix">Title</th>
+        <th class="td-fix">Category</th>
+        <th class="td-fix">Description</th>
+        <th class="td-fix">Price</th>
+        <th class="td-fix">Action</th>
+      </tr>
+
+      <tr *ngFor="let product of products; let i = index">
+        <td class="text-center">
+          <img src="http://localhost:5001/{{product.image}}" width="70" height="70">
+        </td>
+
+        <td class="text-center">
+          <div *ngIf="!product.isEdit">{{product.title}}</div>
+
+          <!--          if editable-->
+          <div *ngIf="product.isEdit">
+            <input type="text" class="form-control" name="title" [(ngModel)]="product.title"/>
+          </div>
+        </td>
+
+        <td class="text-center">
+          <div *ngIf="!product.isEdit">{{product.category}}</div>
+
+          <!--          if editable-->
+          <div *ngIf="product.isEdit">
+            <input type="text" class="form-control" name="category" [(ngModel)]="product.category"/>
+          </div>
+        </td>
+
+        <td class="text-center">
+          <div *ngIf="!product.isEdit">{{product.description}}</div>
+
+          <!--          if editable-->
+          <div *ngIf="product.isEdit">
+            <input type="text" class="form-control" name="description" [(ngModel)]="product.description"/>
+          </div>
+        </td>
+
+        <td class="text-center">
+          <div *ngIf="!product.isEdit">{{product.price}}</div>
+
+          <!--          if editable-->
+          <div *ngIf="product.isEdit">
+            <input type="number" class="form-control" name="price" [(ngModel)]="product.price"/>
+          </div>
+        </td>
+
+        <td>
+          <div class="row" *ngIf="!product.isEdit">
+            <div class="col-md-6 text-right">
+              <i class="fa fa-pencil-alt cursor font-20 text-success" role="button" (click)="getProductById(product)" aria-hidden="true"></i>
+            </div>
+            <div class="col-md-6">
+              <i class="fa fa-trash cursor font-20 text-danger" role="button" (click)="deleteProduct(product)" aria-hidden="true"></i>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="product.isEdit">
+            <div class="col-md-6 text-right">
+              <i class="fa fa-check cursor font-20 text-success" role="button" (click)="updateProduct(product)" aria-hidden="true"></i>
+            </div>
+            <div class="col-md-6">
+              <i class="fa fa-times cursor font-20 text-danger" role="button" (click)="closeEdit(product)" aria-hidden="true"></i>
+            </div>
+          </div>
+        </td>
+
+      </tr>
+    </table>
+  </div>
+</div>

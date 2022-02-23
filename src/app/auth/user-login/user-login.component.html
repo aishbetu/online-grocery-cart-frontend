@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="row mt-5">
+    <div class="col-sm-12">
+      <h1 class="display-4 text-center">Welcome Back User</h1>
+      <p class="lead text-center">Please login to continue shopping</p>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-sm-12 col-md-4"></div>
+
+    <div class="col-sm-12 col-md-4 bg-light py-4 signupBox">
+      <form name="loginUserForm" #loginUserForm="ngForm" (ngSubmit)="onSubmit(loginUserForm.value)">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"
+                 name="email" ngModel required>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password"
+                 name="password" ngModel required>
+        </div>
+        <button type="submit" class="btn btn-success"
+                [disabled]="!loginUserForm.valid">Login</button>
+      </form>
+    </div>
+
+    <div class="col-sm-12 col-md-4"></div>
+
+    <div class="col-sm-12 text-center my-4">
+      <small class="text-muted">Don't have an account?  <a routerLink="../signup" class="text-decoration-none text-success">Signup Here</a></small>
+    </div>
+  </div>
+
+
+</div>

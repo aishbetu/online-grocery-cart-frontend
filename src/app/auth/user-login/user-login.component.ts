@@ -1,31 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginModel} from "../shared/login.model";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
+import {LoginModel} from "../shared/login.model";
 
 @Component({
-  selector: 'app-admin-login',
-  templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.css']
+  selector: 'app-user-login',
+  templateUrl: './user-login.component.html',
+  styleUrls: ['./user-login.component.css']
 })
-export class AdminLoginComponent implements OnInit {
+export class UserLoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  onSubmit(formData: LoginModel){
+  onSubmit(formData: LoginModel) {
     console.log(formData);
     const { email, password } = formData;
-    this.authService.loginAdmin(email, password).subscribe((data) => {
+    this.authService.loginUser(email, password).subscribe((data) => {
       console.log("Success login");
       console.log(data);
-      this.router.navigate(['/products/manage']);
     }, (err) => {
       console.log("error aya hai");
       console.log(err);
-    });
+    })
   }
 
 }

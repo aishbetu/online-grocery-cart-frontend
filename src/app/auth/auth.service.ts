@@ -29,16 +29,50 @@ export class AuthService {
     );
   }
 
+  signUpUser(first_name: string, last_name: string, email: string, password: string, is_admin: boolean) {
+    const postData: SignupModel = {first_name: first_name, last_name: last_name, email: email, password: password, is_admin: is_admin};
+    return this.http.post<any>(`${this.endpoint}/signup`, postData).pipe(
+      map(
+        (data) => {
+          localStorage.setItem('token', `Bearer ${data.token}`);
+          return data;
+        },
+        (err) => {
+          return err;
+        }
+      )
+    );
+  }
+
   loginAdmin(email: string, password: string) {
     const postData: LoginModel = {email: email, password: password};
     return this.http.post<any>(`${this.endpoint}/login`, postData).pipe(
       map(
         (data) => {
-          if (data.is_admin == true) {
+          if (data.is_admin) {
             localStorage.setItem('token', `Bearer ${data.token}`);
             return data;
           } else {
             throw new Error('uh oh! You do not have admin access');
+          }
+        },
+        (err) => {
+          return err;
+        }
+      )
+    );
+  }
+
+  loginUser(email: string, password: string) {
+    const postData: LoginModel = {email: email, password: password};
+    return this.http.post<any>(`${this.endpoint}/login`, postData).pipe(
+      map(
+        (data) => {
+          if (!data.is_admin) {
+            localStorage.setItem('token', `Bearer ${data.token}`);
+            return data;
+          } else {
+            throw new Error('uh oh! Please use admin login');
           }
         },
         (err) => {
