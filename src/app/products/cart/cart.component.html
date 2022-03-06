@@ -1,0 +1,63 @@
+<div class="row mt-4" *ngIf="error">
+  <div class="col-12 my-4 text-center">
+    <h1 class=" display-4 text-secondary">{{cartError | uppercase}}</h1>
+    <p class="lead text-uppercase">please add some products to create a cart</p>
+    <a routerLink="../" class="btn btn-warning justify-content-center">Browse Products</a>
+  </div>
+</div>
+
+
+
+<div class="row mt-4" *ngIf="!error">
+  <div class="col-12 my-4">
+    <h1 class="text-center display-4 text-secondary">My Cart</h1>
+  </div>
+
+  <div class="col-sm-12 col-md-2"></div>
+  <div class="col-sm-12 col-md-8">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col" class="border-0 bg-light">
+            <div class="p-2 px-3 text-uppercase">Product</div>
+          </th>
+          <th scope="col" class="border-0 bg-light">
+            <div class="py-2 text-uppercase">Price</div>
+          </th>
+          <th scope="col" class="border-0 bg-light">
+            <div class="py-2 text-uppercase">Quantity</div>
+          </th>
+          <th scope="col" class="border-0 bg-light">
+            <div class="py-2 text-uppercase">Remove</div>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of cartItems; let i = index;">
+          <th scope="row" class="border-0">
+            <div class="p-2">
+              <div class="ml-3 d-inline-block align-middle">
+                <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">{{item.name}}</a></h5>
+              </div>
+            </div>
+          </th>
+          <td class="border-0 align-middle"><strong>{{item.price}}</strong></td>
+          <td class="border-0 align-middle"><strong>{{item.quantity}}</strong></td>
+          <td class="border-0 align-middle"><a role="button" (click)="onClickDeleteItem(item.itemId)" class="text-dark"><i class="fa fa-trash"></i></a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-12 col-md-8"></div>
+      <div class="col-sm-12 col-md-4 row justify-content-end">
+        <span class="font-weight-bolder text-uppercase text-secondary">total billing amount</span>
+        <span class="mx-2 font-weight-bolder">{{bill}}</span>
+        <button class="btn btn-success my-3 px-5 btn-block">Checkout</button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,48 @@
+
+<div class="row">
+  <div class="col-sm-3 col-md-2 sidebar">
+    <h6 class="lead ml-5 mt-5 mb-3">Filter by Category</h6>
+    <ul class="nav flex-column ml-5">
+      <li class="my-1"><a class="text-success text-uppercase text-decoration-none" role="button" (click)="onFilterClick('vegetable & fruit')">Vegetables & Fruits</a></li>
+      <li class="my-1"><a class="text-success text-uppercase text-decoration-none" role="button" (click)="onFilterClick('dairy')">Dairy</a></li>
+      <li class="my-1"><a class="text-success text-uppercase text-decoration-none" role="button" (click)="onFilterClick('snacks')">Snacks</a></li>
+      <li class="my-1"><a class="text-success text-uppercase text-decoration-none" role="button" (click)="onFilterClick('beverage')">Beverage</a></li>
+      <li class="my-1"><a class="text-success text-uppercase text-decoration-none" role="button" (click)="onFilterClick('grain & oil')">Grains & Oil</a></li>
+      <li class="my-1"><a class="text-success text-uppercase text-decoration-none" role="button" (click)="onFilterClick('baby care')">Baby Care</a></li>
+      <li class="my-1"><a class="text-success text-uppercase text-decoration-none" role="button" (click)="onFilterClick('personal care')">Personal Care</a></li>
+      <li class="my-1"><a class="text-success text-uppercase text-decoration-none" role="button" (click)="onFilterClick('kitchen')">Kitchen</a></li>
+      <li class="my-1"><a class="text-success text-uppercase text-decoration-none" role="button" (click)="onFilterClick('household')">Household</a></li>
+    </ul>
+  </div>
+
+
+
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+    <div class="row">
+
+      <div class="col-sm-12 row justify-content-center mt-5">
+        <div class="alert alert-success text-center customSize" role="alert" *ngIf="isAdded">
+          {{response | uppercase}}
+        </div>
+        <div class="alert alert-danger text-center customSize" role="alert" *ngIf="isRejected">
+          {{response | uppercase}}
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-lg-3 row justify-content-center" *ngFor="let product of products;">
+        <div class="card my-2" style="width: 18rem;">
+          <img src="http://localhost:5001/{{product.image}}" class="card-img-top" height="300px">
+          <hr class="p-0 m-0">
+          <div class="card-body">
+            <span class="product-category">{{product.category}}</span>
+            <h5 class="card-title font-weight-bolder text-uppercase"><a class="text-success text-decoration-none" role="button" [routerLink]="['view', product._id]">{{product.title}}</a></h5>
+            <h6 class="text-warning font-weight-bolder">₹{{product.price}}</h6>
+            <button class="btn btn-success" (click)="onAddToCartClick(product._id)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

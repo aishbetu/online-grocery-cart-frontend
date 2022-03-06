@@ -9,7 +9,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./admin-signup.component.css']
 })
 export class AdminSignupComponent implements OnInit {
-
+  isError = false;
+  error;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -21,10 +22,15 @@ export class AdminSignupComponent implements OnInit {
     this.authService.signUpAdmin( first_name, last_name, email, password, true).subscribe((data: any) => {
       console.log("Success");
       console.log(data);
-      this.router.navigate(['/products/manage']);
+      this.router.navigate(['/products-management/']);
     }, (err) => {
-      console.log('Error');
       console.log(err);
+      this.isError = true;
+      this.error = err.error.message;
+      setTimeout(() => {
+        this.isError = false;
+        this.error = '';
+      },2000);
     });
   }
 

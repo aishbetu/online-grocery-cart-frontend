@@ -9,7 +9,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./admin-login.component.css']
 })
 export class AdminLoginComponent implements OnInit {
-
+  isError = false;
+  error;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -21,10 +22,21 @@ export class AdminLoginComponent implements OnInit {
     this.authService.loginAdmin(email, password).subscribe((data) => {
       console.log("Success login");
       console.log(data);
-      this.router.navigate(['/products/manage']);
+      this.router.navigate(['/products-management/']);
     }, (err) => {
-      console.log("error aya hai");
       console.log(err);
+      this.isError = true;
+      if (err.error) {
+        // handle server error
+        this.error = err.error.message;
+      } else {
+        // handle service error
+        this.error = err;
+      }
+      setTimeout(() => {
+        this.isError = false;
+        this.error = '';
+      },2000);
     });
   }
 

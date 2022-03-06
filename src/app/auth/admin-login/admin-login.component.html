@@ -1,7 +1,16 @@
-<div class="container-fluid">
-  <div class="row mt-5">
+<div class="container-fluid bgCustom">
+  <div class="row pt-5">
     <div class="col-sm-12">
-      <h1 class="display-4 text-center">Login Admin</h1>
+      <h1 class="display-4 text-center text-secondary">Administrator Login</h1>
+      <p class="lead text-center">Please login with your admin credentials to proceed</p>
+    </div>
+  </div>
+
+  <div class="row pt-3" *ngIf="isError">
+    <div class="col-sm-12 row justify-content-center">
+      <div class="alert alert-danger text-center customSize" role="alert">
+        {{error}}
+      </div>
     </div>
   </div>
 

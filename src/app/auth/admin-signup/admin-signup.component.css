@@ -1,3 +1,9 @@
+.bgCustom {
+  min-height: 100vh;
+  background: rgb(201,237,249);
+  background: linear-gradient(90deg, rgba(201,237,249,1) 0%, rgba(231,252,236,1) 81%);
+}
+
 .signupBox {
   border-radius: 5px;
   box-shadow: 1px 1px 13px #888888;

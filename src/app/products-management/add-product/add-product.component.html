@@ -1,14 +1,21 @@
 <div class="row mt-5">
   <div class="col-sm-12">
-    <h1 class="display-3 text-center">Add a Product to Database</h1>
+    <h1 class="display-4 text-center text-uppercase">Add new Product</h1>
   </div>
 </div>
 
+<div class="row" *ngIf="isError">
+  <div class="col-sm-12 row justify-content-center">
+    <div class="alert alert-danger text-center customSize" role="alert">
+          {{response}}
+    </div>
+  </div>
+</div>
 
 <div class="row mt-3">
   <div class="col-sm-12 col-md-4"></div>
 
-  <div class="col-sm-12 col-md-4 bg-light py-4">
+  <div class="col-sm-12 col-md-4 bg-light py-4 signupBox">
     <form name="addProductForm" #addProductForm="ngForm" (ngSubmit)="onSubmit(addProductForm.value)">
       <div class="form-group">
         <label for="title">Title</label>
@@ -37,20 +44,28 @@
       <div class="form-group">
         <label for="description">Description</label>
         <textarea type="text" rows="3" class="form-control" id="description" placeholder="Enter description"
-               name="description" ngModel required></textarea>
+                  name="description" ngModel required></textarea>
       </div>
 
       <div class="form-group">
         <label for="image">Product Image</label>
         <input type="file" accept='image/*' class="form-control-file" id="image"
-              (change)="handleFileInput($event.target.files)" name="image" ngModel required>
+               (change)="handleFileInput($event.target.files)" name="image" ngModel required>
       </div>
 
       <button type="submit" class="btn btn-success"
-              [disabled]="!addProductForm.valid">Sign up</button>
+              [disabled]="!addProductForm.valid">Add</button>
+      <a routerLink="../" class="btn btn-primary mx-2">Back</a>
     </form>
   </div>
 
-  <div class="col-sm-12 col-md-4"></div>
+  <div class="col-sm-12 col-md-4 customCenter">
+    <div *ngIf="imageSrc">
+    <span class="font-weight-bold">Product Preview</span>
+    <div class="card mt-3" style="width: 18rem;">
+      <img [src]="imageSrc" class="card-img-top" alt="product"/>
+    </div>
+    </div>
+  </div>
 
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductsService} from "../products.service";
+import {ProductsManagementService} from "../products-management.service";
 
 @Component({
   selector: 'app-manage-products',
@@ -8,14 +8,16 @@ import {ProductsService} from "../products.service";
 })
 export class ManageProductsComponent implements OnInit {
   products = [];
-  constructor(private productService: ProductsService) { }
+  isError = false;
+  response;
+  constructor(private productsManagementService: ProductsManagementService) { }
 
   ngOnInit(): void {
     this.getProducts();
   }
 
   getProducts() {
-    this.productService.getProducts().subscribe((prods: any[]) => {
+    this.productsManagementService.getProducts().subscribe((prods: any[]) => {
       this.products = prods;
       this.products.forEach(product => {
         product['isEdit'] = false;
@@ -31,9 +33,10 @@ export class ManageProductsComponent implements OnInit {
     console.log(product);
   }
 
+
   deleteProduct(product) {
     console.log(product._id);
-    this.productService.deleteProduct(product._id).subscribe((deletedProduct: any) => {
+    this.productsManagementService.deleteProduct(product._id).subscribe((deletedProduct: any) => {
       console.log(deletedProduct);
       const updatedProducts = this.products.filter((item) => item._id !== product._id);
       this.products = updatedProducts;
@@ -42,19 +45,26 @@ export class ManageProductsComponent implements OnInit {
     })
   }
 
+
   updateProduct(product) {
     const prodObj = {
       "title": product.title,
-      "category": product.category,
+      "category": product.category.toLowerCase(),
       "description": product.description,
       "price": product.price
     };
     console.log(prodObj);
-    this.productService.updateProduct(product._id, prodObj).subscribe((updatedProd: any) => {
+    this.productsManagementService.updateProduct(product._id, prodObj).subscribe((updatedProd: any) => {
       console.log(updatedProd);
       product.isEdit = false;
     }, (err) => {
       console.log(err);
+      this.isError = true;
+      this.response = err.error.message;
+      setTimeout(()=> {
+        this.isError = false;
+        this.response = '';
+      },2500)
       product.isEdit = true;
     });
   }

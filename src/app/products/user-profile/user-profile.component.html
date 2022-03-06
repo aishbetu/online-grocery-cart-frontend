@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-sm-12 row justify-content-center mt-5">
+    <div class="alert alert-success text-center customSize" role="alert" *ngIf="isSuccess">
+      {{response | uppercase}}
+    </div>
+    <div class="alert alert-danger text-center customSize" role="alert" *ngIf="isReject">
+      {{response | uppercase}}
+    </div>
+  </div>
+</div>
+
+
+<div class="row pt-2">
+  <div class="col-sm-12">
+    <h1 class="display-4 text-uppercase text-center">My Profile</h1>
+  </div>
+
+  <div class="col-sm-12 col-md-6 row justify-content-end">
+    <img src="https://img.freepik.com/free-vector/forgot-password-concept-illustration_114360-1095.jpg?w=826" alt="password-change" height="60%">
+  </div>
+
+  <div class="col-sm-12 col-md-6 ml-4 mt-5">
+    <h4 class="font-weight-bolder display-4">{{first_name}} {{last_name}}</h4>
+    <span class="badge badge-success">New User</span>
+    <p class="lead font-weight-bolder pt-3">{{email}}</p>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <button class="btn btn-warning mx-2" *ngIf="!isUpdateBtnClick" (click)="onClickUpdatePassword()">Update Password</button>
+      </div>
+
+    </div>
+
+    <div class="row" *ngIf="isUpdateBtnClick">
+      <div class="col-sm-12">
+        <p class=" lead text-uppercase">Update Password</p>
+      </div>
+      <div class="col-sm-12">
+        <form name="updatePasswordForm" #updatePasswordForm="ngForm" (ngSubmit)="onSubmitNewPassword(updatePasswordForm.value)">
+          <div class="form-group form-inline">
+            <label for="oldPassword" class="mx-4">Old Password:</label>
+            <input type="password" class="form-control" id="oldPassword" placeholder="Enter old password" name="oldPassword" ngModel required style="max-width: 40%;">
+          </div>
+          <div class="form-group form-inline">
+            <label for="newPassword" class="mx-4">New Password</label>
+            <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" name="newPassword" ngModel required style="max-width: 40%;">
+          </div>
+          <button type="submit" class="btn btn-success ml-4" [disabled]="!updatePasswordForm.valid">Update</button>
+          <button type="button" class="btn btn-warning ml-4" (click)="cancelPassword()">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

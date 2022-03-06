@@ -1,17 +1,30 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {map, Observable} from "rxjs";
-import {ProductModel} from "./product.model";
-
+import {map} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService {
+export class ProductsManagementService {
   endpoint: string = 'http://localhost:5001/api/v1/products/';
-  cartEndpoint: string = 'http://localhost:5001/api/v1/cart/';
   constructor(private http: HttpClient, public route: Router) { }
+
+  addProduct(product){
+    const token = localStorage.getItem('token');
+    let header = {
+      headers: new HttpHeaders().set('Authorization', token)
+    }
+    return this.http.post(this.endpoint, product, header).pipe(
+      map(
+        (data) => {
+          return data;
+        }, (err) => {
+          throw err;
+        }
+      )
+    );
+  }
 
   getProducts() {
     const token = localStorage.getItem('token');
@@ -21,12 +34,12 @@ export class ProductsService {
     return this.http.get(this.endpoint, header);
   }
 
-  getProduct(prodId): Observable<ProductModel> {
+  updateProduct(_id: string, prodObj){
     const token = localStorage.getItem('token');
     let header = {
       headers: new HttpHeaders().set('Authorization', token)
     }
-    return this.http.get<ProductModel>(`${this.endpoint}${prodId}`, header).pipe(
+    return this.http.put(`${this.endpoint}${_id}`, prodObj, header).pipe(
       map(
         (data) => {
           return data;
@@ -37,12 +50,12 @@ export class ProductsService {
     );
   }
 
-  addToCart(prodId) {
+  deleteProduct(_id: string) {
     const token = localStorage.getItem('token');
     let header = {
       headers: new HttpHeaders().set('Authorization', token)
     }
-    return this.http.post(`${this.cartEndpoint}add/${prodId}`, null, header).pipe(
+    return this.http.delete(`${this.endpoint}${_id}`, header).pipe(
       map(
         (data) => {
           return data;
@@ -52,37 +65,4 @@ export class ProductsService {
       )
     );
   }
-
-  getCart() {
-    const token = localStorage.getItem('token');
-    let header = {
-      headers: new HttpHeaders().set('Authorization', token)
-    }
-    return this.http.get(this.cartEndpoint, header).pipe(
-      map(
-        (data) => {
-          return data;
-        }, (err) => {
-          throw err;
-        }
-      )
-    );
-  }
-
-  deleteCartItem(prodId) {
-    const token = localStorage.getItem('token');
-    let header = {
-      headers: new HttpHeaders().set('Authorization', token)
-    }
-    return this.http.delete(`${this.cartEndpoint}${prodId}`, header).pipe(
-      map(
-        (data) => {
-          return data;
-        }, (err) => {
-          throw err;
-        }
-      )
-    );
-  }
-
 }
